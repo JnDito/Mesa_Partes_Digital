@@ -15,7 +15,6 @@ ARCHIVO_DATOS = "expedientes.json"
 
 
 def cargar_expedientes():
-    """Carga los expedientes guardados; si no existe el archivo, inicia una lista vacía."""
     if not os.path.exists(ARCHIVO_DATOS):
         return []
     try:
@@ -28,13 +27,11 @@ def cargar_expedientes():
 
 
 def guardar_expedientes(expedientes):
-    """Guarda la lista completa de expedientes en formato JSON."""
     with open(ARCHIVO_DATOS, "w", encoding="utf-8") as archivo:
         json.dump(expedientes, archivo, ensure_ascii=False, indent=4)
 
 
 def validar_texto(texto, nombre_campo):
-    """Comprueba que una cadena no esté vacía."""
     if not texto.strip():
         print(f"El campo {nombre_campo} es obligatorio.")
         return False
@@ -42,7 +39,6 @@ def validar_texto(texto, nombre_campo):
 
 
 def generar_codigo(expedientes):
-    """Genera un código correlativo para identificar cada expediente."""
     mayor = 0
     for expediente in expedientes:
         try:
@@ -54,7 +50,6 @@ def generar_codigo(expedientes):
 
 
 def registrar_expediente(expedientes):
-    """Solicita los datos, valida los campos y registra un expediente."""
     print("\n--- REGISTRO DE EXPEDIENTE ---")
     solicitante = input("Nombre del solicitante: ").strip()
     if not validar_texto(solicitante, "solicitante"):
@@ -88,7 +83,6 @@ def registrar_expediente(expedientes):
 
 
 def buscar_expediente(expedientes):
-    """Busca un expediente mediante su código único."""
     codigo = input("Ingrese el código del expediente: ").strip().upper()
     for expediente in expedientes:
         if expediente["codigo"].upper() == codigo:
@@ -98,7 +92,6 @@ def buscar_expediente(expedientes):
 
 
 def mostrar_expediente(expediente):
-    """Muestra los datos de un expediente."""
     print("\nCódigo:", expediente["codigo"])
     print("Solicitante:", expediente["solicitante"])
     print("DNI:", expediente["dni"])
@@ -108,7 +101,6 @@ def mostrar_expediente(expediente):
 
 
 def ordenar_expedientes(expedientes):
-    """Ordena los expedientes alfabéticamente por solicitante."""
     expedientes.sort(key=lambda item: item["solicitante"].casefold())
     guardar_expedientes(expedientes)
     print("\nExpedientes ordenados por nombre del solicitante.")
@@ -116,7 +108,6 @@ def ordenar_expedientes(expedientes):
 
 
 def listar_expedientes(expedientes):
-    """Muestra todos los expedientes registrados."""
     if not expedientes:
         print("No existen expedientes registrados.")
         return
@@ -127,7 +118,6 @@ def listar_expedientes(expedientes):
 
 
 def mostrar_menu():
-    """Presenta las opciones principales del sistema."""
     print("\n===== MESA DE PARTES DIGITAL =====")
     print("1. Registrar expediente")
     print("2. Buscar expediente por código")
@@ -137,7 +127,6 @@ def mostrar_menu():
 
 
 def main():
-    """Controla el flujo general del programa."""
     expedientes = cargar_expedientes()
     while True:
         mostrar_menu()
