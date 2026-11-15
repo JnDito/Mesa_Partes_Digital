@@ -42,3 +42,17 @@ def registrar_expediente(expedientes):
     expedientes.append({"codigo": generar_codigo(expedientes), "solicitante": solicitante,
                         "dni": documento, "asunto": asunto, "tipo_documento": tipo_documento})
     guardar_expedientes(expedientes)
+
+def buscar_expediente(expedientes, codigo):
+    for expediente in expedientes:
+        if expediente["codigo"].upper() == codigo.strip().upper():
+            return expediente
+    return None
+
+def ordenar_expedientes(expedientes):
+    expedientes.sort(key=lambda item: item["solicitante"].casefold())
+    guardar_expedientes(expedientes)
+
+def listar_expedientes(expedientes):
+    for expediente in expedientes:
+        print(expediente)
